@@ -1,0 +1,92 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap');
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+    /* overflow: hidden; */
+    margin: 0;
+    scroll-behavior: smooth;
+}
+.slides {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+.left-slides {
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    width: 30%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.right-slides {
+    height: 100%;
+    transition: all 0.3s ease-in-out;
+    width: 70%;
+    position: absolute;
+    top: 0;
+    left: 30%;
+}
+.left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+.right {
+    height: 100%;
+}
+.red {
+    background: red;
+}
+.blue {
+    background: skyblue;
+}
+.green {
+    background: green;
+}
+.orange {
+    background: lightsalmon;
+}
+.bg-1 {
+    background: url(./bg-1.jpg) no-repeat center center / cover;
+}
+.bg-2 {
+    background: url(./bg-2.jpg) no-repeat center center / cover;
+}
+.bg-3 {
+    background: url(./bg-3.jpg) no-repeat center center / cover;
+}
+.bg-4 {
+    background: url(./bg-4.jpg) no-repeat center center / cover;
+}
+svg {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    cursor: pointer;
+    z-index: 15;
+}
+svg.up   {
+    transform: rotate(180deg);
+    left: calc(30% - 30px);
+}
