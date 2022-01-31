@@ -1,0 +1,96 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 100%;
+    height: auto
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+    background: #ccc;
+    border-radius: 2px
+}
+::-webkit-scrollbar-thumb {
+    width: 3px;
+    background: orange;
+    border-radius: 2px;
+    height: 10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap');
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.container {
+    background: slateblue;
+    border-radius: 15px;
+    padding: 15px 15px 0;
+}
+h3, p {
+    color: #fff;
+}
+input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    color: #333;
+}
+input:focus {
+    outline: orange 2px solid;
+}
+.user-list-ctn {
+    background: #fff;
+    overflow: auto;
+    margin: 15px -15px 0;
+    padding: 0 15px;
+    border: 1px solid #ccc;
+    max-height: 500px;
+}
+.user-list-ctn p {
+    color: #333;
+}
+.user-list {
+    list-style: none;
+}
+.user-item {
+    display: flex;  
+    align-items: center;
+    border-top: 1px solid #ccc;
+    padding: 15px 15px;
+    margin: 0 -15px 0;
+}
+.picture {  
+    margin-right: 15px;
+}
+.picture img {
+    border-radius: 50%;
+    border: 1px solid #fff;
+    max-width: 100px;
+}
+.user-item .name {
+    font-size: 18px;
+    font-weight: 600;
+}
+.user-item .location {
+    font-size: 14px;
+}
+.user-item.hide {
+    display: none !important;
+}
