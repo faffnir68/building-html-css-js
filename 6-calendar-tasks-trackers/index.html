@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-100">
 
-    <div class="container mx-auto w-full">
+    <div class="container mx-auto w-full grid grid-cols-3">
         <section class="calendar w-96 border-radius-5 shadow-lg shadow-blue-500/50 mx-auto font-sans rounded-lg bg-white px-3">
             <div class="calendar-header border-b -mx-3 py-3">
                 <div class="years flex w-full overflow-hidden px-3">
@@ -33,14 +33,21 @@
             </div>
         </section>
 
-        <section class="mt-6 task w-96 border-radius-5 shadow-lg shadow-blue-500/50 mx-auto font-sans rounded-lg bg-white px-3">
+        <section class="task w-96 border-radius-5 shadow-lg shadow-blue-500/50 mx-auto font-sans rounded-lg bg-white px-3">
             <div class="task-name">
                 <form action="" method="post" class="py-2">
-                    <label class="block text-lg text-orange-500 font-bold" for="taskContent">Task</label>
-                    <input class="border rounded my-2 px-2 py-1" type="text" name="task" id="taskContent">
-                    <label class="block text-lg text-orange-500 font-bold" for="taskRemaining">Is the task still to do ?</label>
-                    <input class="border rounded my-2 px-2 py-1" type="checkbox" name="remaining" id="taskRemaining">
+                    <label class="block text-lg text-orange-500 font-bold" for="task-content">Task</label>
+                    <input class="border rounded my-2 px-2 py-1" type="text" name="task-content" id="task-content">
+                    <label class="block text-lg text-orange-500 font-bold" for="task-remaining">Is the task still to do ?</label>
+                    <input class="border rounded my-2 px-2 py-1" type="checkbox" name="task-remaining" id="task-remaining">
+                    <button id="add-task" type="submit" class="block mt-3 bg-sky-500 text-white border rounded px-3 py-2">Submit</button>
                 </form>
+            </div>
+        </section>
+
+        <section>
+            <div class="tasks">
+
             </div>
         </section>
     </div>

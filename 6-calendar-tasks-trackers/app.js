@@ -119,8 +119,9 @@ const selectDay = (days) => {
     days.forEach(day => {
         day.addEventListener('click', () => {
             days.forEach(d => {
-                if(d.classList.contains('current'))
-                d.classList.remove('current')
+                if(d.classList.contains('current')){
+                    d.classList.remove('current')
+                }
             })
             day.classList.add('current')
         })
@@ -130,4 +131,62 @@ selectDay(days)
 
 // currentMonth.innerText = date.toLocaleDateString('en-US', {month: 'long'})
 
-let taskContent = "";
+let tasks = [
+    {
+        'id':1,
+        'content': "Appt to the doctor",
+        'remaining': true
+    },
+    {
+        'id':2,
+        'content': "Going to the cinema",
+        'remaining': true
+    },
+    {
+        'id':3,
+        'content': "Working on project",
+        'remaining': false
+    }
+];
+let taskContent = document.getElementById("task-content")
+let taskRemain = document.getElementById("task-remaining")
+
+const displayTask = () => {
+    tasks.forEach(task => {
+        const tasksContentdiv = document.createElement("li")
+        const tasksRemaindiv = document.createElement("li")
+        const tasksDatediv = document.createElement("li")
+        
+        tasksContentdiv.classList.add('task-content')
+        tasksRemaindiv.classList.add('task-remaining')
+        tasksDatediv.classList.add('mb-3')
+    
+        tasksContentdiv.innerText = task.content
+        tasksRemaindiv.innerText = task.remaining
+        tasksDatediv.innerText = task.date
+        
+        document.querySelector('.tasks').appendChild(tasksContentdiv)
+        document.querySelector('.tasks').appendChild(tasksRemaindiv)
+        document.querySelector('.tasks').appendChild(tasksDatediv)
+    })
+}
+displayTask()
+
+const addTask = (e) => {
+    e.preventDefault()
+    const curDay = document.querySelector('.day.current').innerText
+    const curMonth = document.querySelector('.current-month').innerText
+    const curYear = document.querySelector('.current-year').innerText
+    tasks.push({
+        'id':1,
+        'content': taskContent.value,
+        'remaining': taskRemain.checked,
+        'date': new Date(`${curYear}-${curMonth}-${curDay}`).toLocaleDateString()
+    })
+    document.querySelector('.tasks').innerHTML = ""
+    displayTask()
+
+}
+document.getElementById('add-task').addEventListener("click", e => {
+    addTask(e)
+})
