@@ -129,3 +129,5 @@ const selectDay = (days) => {
 selectDay(days)
 
 // currentMonth.innerText = date.toLocaleDateString('en-US', {month: 'long'})
+
+let taskContent = "";
