@@ -1,6 +1,6 @@
 const date = new Date()
 let startYear = date.getFullYear()
-let startMonth = date.getMonth()
+let startMonth = date.getMonth()+1
 let startDay = date.getDay()
 const months = ["", "January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -58,6 +58,7 @@ const setDays = (year, month) => {
     }
 }
 setDays(startYear, startMonth)
+let daysOfTheMonth = document.querySelectorAll(".day")
 
 /*
 * Functions launch after the clicks on left and right buttons for month and year
@@ -107,86 +108,100 @@ yearMonthBtns.forEach(yearMonthBtn => {
         changeYearMonth(currentYear, currentMonth, e)
         setDays(currentYear.innerText, currentMonth.innerText)
         currentMonth.innerText = months[currentMonth.innerText]
+        daysOfTheMonth = document.querySelectorAll(".day")
+        selectDay(daysOfTheMonth)
+        hasTask(daysOfTheMonth)
     })
 })
-
 
 /*
 Overline current day
 */
-const days = document.querySelectorAll(".day")
-const selectDay = (days) => {
-    days.forEach(day => {
-        day.addEventListener('click', () => {
-            days.forEach(d => {
+const selectDay = (daysMonth) => {
+    daysMonth.forEach(day => {
+        day.addEventListener('click', (e) => {
+            e.preventDefault()
+            daysMonth.forEach(d => {
                 if(d.classList.contains('current')){
                     d.classList.remove('current')
                 }
             })
             day.classList.add('current')
+            document.querySelector(".tasks").innerText = ""
+            displayTask()
         })
     })
 }
-selectDay(days)
+selectDay(daysOfTheMonth)
 
 // currentMonth.innerText = date.toLocaleDateString('en-US', {month: 'long'})
 
-let tasks = [
-    {
-        'id':1,
-        'content': "Appt to the doctor",
-        'remaining': true
-    },
-    {
-        'id':2,
-        'content': "Going to the cinema",
-        'remaining': true
-    },
-    {
-        'id':3,
-        'content': "Working on project",
-        'remaining': false
-    }
-];
+let tasks = [];
 let taskContent = document.getElementById("task-content")
 let taskRemain = document.getElementById("task-remaining")
 
 const displayTask = () => {
-    tasks.forEach(task => {
-        const tasksContentdiv = document.createElement("li")
-        const tasksRemaindiv = document.createElement("li")
-        const tasksDatediv = document.createElement("li")
-        
-        tasksContentdiv.classList.add('task-content')
-        tasksRemaindiv.classList.add('task-remaining')
-        tasksDatediv.classList.add('mb-3')
-    
-        tasksContentdiv.innerText = task.content
-        tasksRemaindiv.innerText = task.remaining
-        tasksDatediv.innerText = task.date
-        
-        document.querySelector('.tasks').appendChild(tasksContentdiv)
-        document.querySelector('.tasks').appendChild(tasksRemaindiv)
-        document.querySelector('.tasks').appendChild(tasksDatediv)
-    })
-}
-displayTask()
-
-const addTask = (e) => {
-    e.preventDefault()
+    let tasksStored = localStorage.getItem("tasks")
+    let tasks = JSON.parse(tasksStored)
     const curDay = document.querySelector('.day.current').innerText
     const curMonth = document.querySelector('.current-month').innerText
     const curYear = document.querySelector('.current-year').innerText
+
+    tasks.forEach(task => {
+        if(task.date === new Date(`${curYear}-${curMonth}-${curDay}`).toLocaleDateString()) {
+            const tasksContentdiv = document.createElement("li")
+            const tasksRemaindiv = document.createElement("li")
+            const tasksDatediv = document.createElement("li")
+            
+            tasksContentdiv.classList.add('task-content')
+            tasksRemaindiv.classList.add('task-remaining')
+            tasksDatediv.classList.add('mb-3')
+    
+            tasksContentdiv.innerText = task.content
+            tasksRemaindiv.innerText = task.remaining
+            tasksDatediv.innerText = task.date
+            
+            document.querySelector('.tasks').appendChild(tasksContentdiv)
+            document.querySelector('.tasks').appendChild(tasksRemaindiv)
+            document.querySelector('.tasks').appendChild(tasksDatediv)
+        }
+    })
+}
+if(tasks.length !== 0) {
+    displayTask()
+}
+
+const addTask = (e) => {
+    e.preventDefault()
+    const curDay = document.querySelector('.day.current')
+    const curMonth = document.querySelector('.current-month').innerText
+    const curYear = document.querySelector('.current-year').innerText
     tasks.push({
-        'id':1,
+        'id': tasks.length,
         'content': taskContent.value,
         'remaining': taskRemain.checked,
-        'date': new Date(`${curYear}-${curMonth}-${curDay}`).toLocaleDateString()
+        'date': new Date(`${curYear}-${curMonth}-${curDay.innerText}`).toLocaleDateString()
     })
     document.querySelector('.tasks').innerHTML = ""
+    let obj = JSON.stringify(tasks)
+    localStorage.setItem("tasks", obj)
     displayTask()
-
 }
 document.getElementById('add-task').addEventListener("click", e => {
+    e.preventDefault()
     addTask(e)
 })
+
+// const hasTask = (daysMonth) => {
+//     let tasksStored = localStorage.getItem("tasks")
+//     let tasks = JSON.parse(tasksStored)
+//     const curMonth = document.querySelector('.current-month').innerText
+//     const curYear = document.querySelector('.current-year').innerText
+//     daysOfTheMonth.forEach(day => {
+//         day.innerText
+//     })
+//     const remain = tasks.filter(task => task.remaining === true && task.date === new Date(`${curYear}-${curMonth}-${day.innertext}`).toLocaleDateString())
+//     console.log(remain)
+
+// }
+// hasTask(daysOfTheMonth)
