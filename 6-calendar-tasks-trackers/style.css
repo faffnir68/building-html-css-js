@@ -43,3 +43,27 @@ i, .day {
     width: 100%;
     justify-content: space-evenly;
 }
+.task-ctn {
+    background: lightyellow;
+    border: 1px solid #ddd;
+    box-shadow: 1px 1px 2px #ccc;
+    border-radius: 15px;
+    padding: 15px;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+.tasks li {
+    list-style: none;
+}
+.task-content {
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+}
+.task-remaining {
+    font-weight: italic;
+    color: #aaa;
+}
+.task-remaining + li {
+    font-size: 14px;
+}

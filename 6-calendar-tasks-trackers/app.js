@@ -149,10 +149,12 @@ const displayTask = () => {
 
     tasks.forEach(task => {
         if(task.date === new Date(`${curYear}-${curMonth}-${curDay}`).toLocaleDateString()) {
+            const tasksContentdivMain = document.createElement("section")
             const tasksContentdiv = document.createElement("li")
             const tasksRemaindiv = document.createElement("li")
             const tasksDatediv = document.createElement("li")
             
+            tasksContentdivMain.classList.add('task-ctn')
             tasksContentdiv.classList.add('task-content')
             tasksRemaindiv.classList.add('task-remaining')
             tasksDatediv.classList.add('mb-3')
@@ -161,9 +163,13 @@ const displayTask = () => {
             tasksRemaindiv.innerText = task.remaining
             tasksDatediv.innerText = task.date
             
-            document.querySelector('.tasks').appendChild(tasksContentdiv)
-            document.querySelector('.tasks').appendChild(tasksRemaindiv)
-            document.querySelector('.tasks').appendChild(tasksDatediv)
+            document.querySelector('.tasks').appendChild(tasksContentdivMain)
+            tasksContentdivMain.appendChild(tasksContentdiv)
+            tasksContentdivMain.appendChild(tasksRemaindiv)
+            tasksContentdivMain.appendChild(tasksDatediv)
+            // document.querySelector('.tasks').appendChild(tasksContentdiv)
+            // document.querySelector('.tasks').appendChild(tasksRemaindiv)
+            // document.querySelector('.tasks').appendChild(tasksDatediv)
         }
     })
 }
@@ -176,6 +182,7 @@ const addTask = (e) => {
     const curDay = document.querySelector('.day.current')
     const curMonth = document.querySelector('.current-month').innerText
     const curYear = document.querySelector('.current-year').innerText
+    curDay.classList.add('has-task')
     tasks.push({
         'id': tasks.length,
         'content': taskContent.value,
@@ -192,16 +199,18 @@ document.getElementById('add-task').addEventListener("click", e => {
     addTask(e)
 })
 
-// const hasTask = (daysMonth) => {
-//     let tasksStored = localStorage.getItem("tasks")
-//     let tasks = JSON.parse(tasksStored)
-//     const curMonth = document.querySelector('.current-month').innerText
-//     const curYear = document.querySelector('.current-year').innerText
-//     daysOfTheMonth.forEach(day => {
-//         day.innerText
-//     })
-//     const remain = tasks.filter(task => task.remaining === true && task.date === new Date(`${curYear}-${curMonth}-${day.innertext}`).toLocaleDateString())
-//     console.log(remain)
+const hasTask = () => {
+    let tasksStored = localStorage.getItem("tasks")
+    let tasks = JSON.parse(tasksStored)
+    const curMonth = document.querySelector('.current-month').innerText
+    const curYear = document.querySelector('.current-year').innerText
+    const remain = tasks.filter(task => task.remaining === true)
+    // && task.date === new Date(`${curYear}-${curMonth}-${day.innertext}`).toLocaleDateString()
+    if(remain) {
+        tasks.forEach(task => {
+            console.log(task.date)
+        })
+    }
 
-// }
-// hasTask(daysOfTheMonth)
+}
+hasTask()
