@@ -27,22 +27,54 @@ dropArea.addEventListener('drop', handleDrop, false)
 function handleDrop(e) {
     let dt = e.dataTransfer
     let files = dt.files
-
+console.log(files)
     handleFiles(files)
 }
 
 function handleFiles(files) {
-    ([...files].forEach(uploadFile))
+    files = [...files]
+    console.log(files)
+    initializeProgress(files.length)
+    files.forEach(uploadFile)
+    files.forEach(previewFile)
 }
 
 function uploadFile(file) {
-    let url = ''
+    let url = '127.0.0.1:5500'
     let formData = new FormData()
     formData.append('file', file)
     fetch(url, {
         method: 'POST',
         body: formData
     })
-    .then(()=> {})
+    .then(()=> {
+        progressDone
+    })
     .catch((error)=> {console.log(error)})
 }
+
+function previewFile(file) {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = function() {
+        let img = document.createElement('img')
+        img.src = reader.result
+        document,getElementById('gallery').appendChild(img)
+    }
+}
+
+let filesDone = 0
+let filesToDo = 0
+let progressBar = document.getElementById('progress-bar')
+
+function initializeProgress(numFiles) {
+    progressBar.value = 0
+    filesDone = 0
+    filesToDo = numFiles
+}
+
+function progressDone() {
+    filesDone++
+    progressBar.value = filesDone / filesToDo * 100
+}
+
